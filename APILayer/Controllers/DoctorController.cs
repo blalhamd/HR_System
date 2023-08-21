@@ -18,12 +18,10 @@ namespace APILayer.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public DoctorController(IMediator mediator, IMapper mapper)
+        public DoctorController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         [Authorize]
@@ -85,12 +83,9 @@ namespace APILayer.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<Unit>> updateDoctor(UpdateDoctorRequiest model, int id)
+        public async Task<ActionResult<Unit>> updateDoctor(UpdateDoctorCommand command)
         {
-            var UpdateDoctorCommand = _mapper.Map<UpdateDoctorCommand>(model);
-            UpdateDoctorCommand.Id= id;
-
-            var query = await _mediator.Send(UpdateDoctorCommand);
+            var query = await _mediator.Send(command);
 
             return Ok(query);
         }
