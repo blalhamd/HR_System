@@ -16,28 +16,26 @@ namespace APILayer.Controllers
     public class BillController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public BillController(IMediator mediator, IMapper mapper)
+        public BillController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
 
 
-        //[HttpGet("GetAllBills")]
-        //public async Task<ActionResult<List<BillViewModel>>> GetAllBills()
-        //{
-        //    var query = await _mediator.Send(new GetBillListQuery());
+        [HttpGet("GetAllBills")]
+        public async Task<ActionResult<List<BillViewModel>>> GetAllBills()
+        {
+            var query = await _mediator.Send(new GetBillListQuery());
 
-        //    if (query is null)
-        //    {
-        //        return NotFound("Not found Bills");
-        //    }
+            if (query is null)
+            {
+                return NotFound("Not found Bills");
+            }
 
-        //    return Ok(query);
-        //}
+            return Ok(query);
+        }
 
         [Authorize]
         [HttpGet("{id}")]
@@ -71,12 +69,10 @@ namespace APILayer.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<Unit>> updateBill(UpdateBillRequiest model, int id)
+        public async Task<ActionResult<Unit>> updateBill(UpdateBillCommand command, int id)
         {
-            var UpdateBillCommand = _mapper.Map<UpdateBillCommand>(model);
-            UpdateBillCommand.Id= id;
 
-            var query = await _mediator.Send(UpdateBillCommand);
+            var query = await _mediator.Send(command);
 
             return Ok(query);
         }
