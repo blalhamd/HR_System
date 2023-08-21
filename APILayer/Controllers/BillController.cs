@@ -69,7 +69,7 @@ namespace APILayer.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<Unit>> updateBill(UpdateBillCommand command, int id)
+        public async Task<ActionResult<Unit>> updateBill(UpdateBillCommand command)
         {
 
             var query = await _mediator.Send(command);
