@@ -15,12 +15,10 @@ namespace APILayer.Controllers
     public class PrescriptionController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public PrescriptionController(IMediator mediator, IMapper mapper)
+        public PrescriptionController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         [Authorize]
@@ -68,27 +66,10 @@ namespace APILayer.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<Unit>> updatePrescription(UpdatePrescriptionRequist model,int id)
+        public async Task<ActionResult<Unit>> updatePrescription(UpdatePrescriptionCommand command)
         {
-            // Can I use Automapper alternative that but i don't want to use mapper in controller
 
-            var map = _mapper.Map<UpdatePrescriptionCommand>(model);
-            map.Id= id;
-           
-            /*
-            var prescription = new UpdatePrescriptionCommand()
-            {
-                Id = id,
-                AppointmentId = model.AppointmentId,
-                dosage = model.dosage,
-                duration = model.duration,
-                frequency = model.frequency,
-                medication = model.medication
-            };
-            */
-            
-
-            var query = await _mediator.Send(map);
+            var query = await _mediator.Send(command);
 
             return Ok(query);
         }
