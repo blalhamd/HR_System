@@ -16,12 +16,10 @@ namespace APILayer.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
-
-        public AppointmentController(IMediator mediator, IMapper mapper)
+        
+        public AppointmentController(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
         [Authorize]
@@ -70,12 +68,9 @@ namespace APILayer.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<Unit>> updateAppointment(UpdateAppointmentRequist model,int id)
+        public async Task<ActionResult<Unit>> updateAppointment(UpdateAppointmentCommand command)
         {
-            var UpdateAppointmentCommand = _mapper.Map<UpdateAppointmentCommand>(model);
-            UpdateAppointmentCommand.Id= id;
-
-            var query= await _mediator.Send(UpdateAppointmentCommand);
+            var query= await _mediator.Send(command);
 
             return Ok(query);
         }
