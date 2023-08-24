@@ -10,12 +10,10 @@ namespace ApplicationLayer.BusinessLogic.Doctors.Commands.DeleteDoctor
     public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, Unit>
     {
         private readonly IGenericRepository<Doctor> _genericRepository;
-        private readonly IMapper _mapper;
 
-        public DeleteDoctorCommandHandler(IGenericRepository<Doctor> genericRepository, IMapper mapper)
+        public DeleteDoctorCommandHandler(IGenericRepository<Doctor> genericRepository)
         {
             _genericRepository = genericRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
