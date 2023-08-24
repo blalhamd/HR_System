@@ -10,12 +10,10 @@ namespace ApplicationLayer.BusinessLogic.Bills.Commands.DeleteBill
     public class DeleteBillCommandHandler : IRequestHandler<DeleteBillCommand, Unit>
     {
         private readonly IGenericRepository<Bill> _genericRepository;
-        private readonly IMapper _mapper;
 
-        public DeleteBillCommandHandler(IGenericRepository<Bill> genericRepository, IMapper mapper)
+        public DeleteBillCommandHandler(IGenericRepository<Bill> genericRepository)
         {
             _genericRepository = genericRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeleteBillCommand request, CancellationToken cancellationToken)
