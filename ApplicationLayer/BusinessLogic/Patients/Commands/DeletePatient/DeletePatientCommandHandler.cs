@@ -10,12 +10,10 @@ namespace ApplicationLayer.BusinessLogic.Patients.Commands.DeletePatient
     public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand, Unit>
     {
         private readonly IGenericRepository<Patient> _repository;
-        private readonly IMapper _mapper;
 
-        public DeletePatientCommandHandler(IGenericRepository<Patient> repository, IMapper mapper)
+        public DeletePatientCommandHandler(IGenericRepository<Patient> repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
