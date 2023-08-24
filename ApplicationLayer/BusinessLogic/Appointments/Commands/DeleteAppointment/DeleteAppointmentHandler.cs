@@ -10,12 +10,10 @@ namespace ApplicationLayer.BusinessLogic.Appointments.Commands.DeleteAppointment
     public class DeleteAppointmentHandler : IRequestHandler<DeleteAppointmentCommand, Unit>
     {
         private readonly IGenericRepository<Appointment> _repository;
-        private readonly IMapper _mapper;
 
-        public DeleteAppointmentHandler(IGenericRepository<Appointment> repository, IMapper mapper)
+        public DeleteAppointmentHandler(IGenericRepository<Appointment> repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeleteAppointmentCommand request, CancellationToken cancellationToken)
