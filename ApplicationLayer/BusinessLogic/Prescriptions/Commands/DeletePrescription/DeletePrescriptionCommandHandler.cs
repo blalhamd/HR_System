@@ -10,12 +10,10 @@ namespace ApplicationLayer.BusinessLogic.Prescriptions.Commands.DeletePrescripti
     public class DeletePrescriptionCommandHandler : IRequestHandler<DeletePrescriptionCommand, Unit>
     {
         private readonly IGenericRepository<Prescription> _genericRepository;
-        private readonly IMapper _mapper;
 
-        public DeletePrescriptionCommandHandler(IGenericRepository<Prescription> genericRepository, IMapper mapper)
+        public DeletePrescriptionCommandHandler(IGenericRepository<Prescription> genericRepository)
         {
             _genericRepository = genericRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeletePrescriptionCommand request, CancellationToken cancellationToken)
